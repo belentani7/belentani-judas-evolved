@@ -16,3 +16,17 @@
 - [x] Añadir cierre con Escape y foco inicial/devolución de foco para el drawer.
 - [x] Reforzar estilos de foco visibles y navegación completa por teclado.
 - [x] Deshabilitar también el input del role playground y el textarea del image atelier durante sus mutaciones.
+<<<<<<< HEAD
+=======
+- [x] Integrar THE PORTAL como umbral narrativo interactivo.
+- [x] Implementar cinco diamantes/entidades con estados, símbolos y memorias.
+- [x] Implementar decisiones y puntuaciones de MEMORY, CREATION, DESIRE, FORGIVENESS y WILL.
+- [x] Añadir revelación del fragmento faltante y perfil personal de Judas.
+- [x] Verificar navegación de la narrativa, responsive y compilación.
+- [x] Implementar decisiones reales por diamante con respuestas que alteren cada puntuación.
+- [x] Añadir un bloque Your Judas Profile con interpretación personalizada.
+- [x] Verificar el Portal y los diamantes en navegador en escritorio y móvil.
+- [x] Persistir la respuesta de cada diamante y bloquear puntuaciones repetidas.
+- [x] Hacer que la revelación dependa de cinco decisiones únicas completadas.
+- [x] Añadir una prueba de lógica para impedir doble puntuación.
+>>>>>>> 625de4a (chore: sincronizacion y calidad de repo)

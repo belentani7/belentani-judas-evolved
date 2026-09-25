@@ -1,6 +1,10 @@
 /* Style direction: Dark Cosmic Luxury — black void, Belentani Ruby, editorial serif, precise mono labels, immersive but accessible motion. */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { trpc } from "@/lib/trpc";
+<<<<<<< HEAD
+=======
+import { applyDiamondAnswer } from "@shared/diamondLogic";
+>>>>>>> 625de4a (chore: sincronizacion y calidad de repo)
 import {
   ArrowUpRight,
   AudioLines,
@@ -84,6 +88,16 @@ const tools: Tool[] = Object.entries(families).flatMap(([category, family], fami
 
 const featuredIds = [1, 56, 104, 153, 203, 253];
 const roles = ["The Muse", "The Mirror", "The Producer", "The Oracle", "The Scribe"];
+<<<<<<< HEAD
+=======
+const diamondData = [
+  { name: "THE HUMAN", axis: "MEMORY", symbol: "○", prompt: "Who were you before the world named you?", result: "You kept the first name you were given, but not the shape it made you wear.", choices: ["I remember the quiet before the name.", "I became the name they gave me."] },
+  { name: "THE ARTIST", axis: "CREATION", symbol: "✦", prompt: "What would you make if nobody could applaud?", result: "Creation is an act of defiance. Your hands answered before your fear did.", choices: ["Something unfinished but alive.", "Nothing. I would finally rest."] },
+  { name: "THE SINNER", axis: "DESIRE", symbol: "◈", prompt: "What do you want when nobody is watching?", result: "Desire is not a confession. It is the direction your silence keeps choosing.", choices: ["To be seen without performing.", "To disappear without explaining."] },
+  { name: "THE SAINT", axis: "FORGIVENESS", symbol: "†", prompt: "Which truth would you stop punishing yourself for?", result: "Forgiveness is the door you thought had to be earned before it could open.", choices: ["I was allowed to leave.", "I still owe them an ending."] },
+  { name: "THE WARRIOR", axis: "WILL", symbol: "△", prompt: "What remains when doubt has used every argument?", result: "Will is not force. It is the quiet decision to return when leaving would be easier.", choices: ["I return, even without proof.", "I wait until I am certain."] },
+];
+>>>>>>> 625de4a (chore: sincronizacion y calidad de repo)
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -100,6 +114,14 @@ export default function Home() {
   const [microInput, setMicroInput] = useState("");
   const [microOutput, setMicroOutput] = useState("Select an instrument and give it a fragment.");
   const [isPlaying, setIsPlaying] = useState(false);
+<<<<<<< HEAD
+=======
+  const [diamondIndex, setDiamondIndex] = useState(0);
+  const [memory, setMemory] = useState<Record<string, number>>({ MEMORY: 0, CREATION: 0, DESIRE: 0, FORGIVENESS: 0, WILL: 0 });
+  const [revelation, setRevelation] = useState(false);
+  const [choiceMade, setChoiceMade] = useState(false);
+  const [answeredDiamonds, setAnsweredDiamonds] = useState<Record<number, boolean>>({});
+>>>>>>> 625de4a (chore: sincronizacion y calidad de repo)
   const [role, setRole] = useState(roles[0]);
   const [prompt, setPrompt] = useState("");
   const [output, setOutput] = useState("Awaiting a creative signal…");
@@ -173,6 +195,20 @@ export default function Home() {
     }
   };
 
+<<<<<<< HEAD
+=======
+  const chooseDiamond = (index: number) => { setDiamondIndex(index); setChoiceMade(Boolean(answeredDiamonds[index])); };
+  const answerDiamond = (choiceIndex: number) => {
+    const axis = diamondData[diamondIndex].axis;
+    const result = applyDiamondAnswer(memory, answeredDiamonds, diamondIndex, axis, choiceIndex);
+    if (!result.applied) return;
+    setMemory(result.memory);
+    setAnsweredDiamonds(result.answered);
+    setChoiceMade(true);
+    if (Object.keys(result.answered).length === diamondData.length) setRevelation(true);
+  };
+
+>>>>>>> 625de4a (chore: sincronizacion y calidad de repo)
   const runMicroTool = () => {
     if (!microInput.trim()) {
       toast.error("Give the instrument a fragment first.");
@@ -245,6 +281,11 @@ export default function Home() {
           <div className="catalog-footer"><span>Showing {Math.min(filteredTools.length, 24)} of {filteredTools.length} instruments</span><button className="line-link" onClick={() => toast.success("The full 300-instrument archive is indexed.")}>OPEN FULL ARCHIVE <ArrowUpRight size={14} /></button></div>
         </section>
 
+<<<<<<< HEAD
+=======
+        <section className="portal-section section-pad" id="portal"><div className="section-index">02.4 / THE PORTAL</div><div className="portal-intro"><h2>Five fragments.<br /><em>One missing.</em></h2><p>The portal does not ask you to win. It asks you to leave a trace. Choose a diamond and recover the memory inside it.</p></div><div className="diamond-constellation">{diamondData.map((diamond, index) => <button key={diamond.name} className={diamondIndex === index ? "diamond-node active" : "diamond-node"} onClick={() => chooseDiamond(index)}><span className="diamond-symbol">{diamond.symbol}</span><small>0{index + 1} / {diamond.axis}</small><strong>{diamond.name}</strong></button>)}</div><div className="diamond-reading"><div className="reading-mark">{diamondData[diamondIndex].symbol}</div><div><span className="mono-label">DECISION // {diamondData[diamondIndex].axis}</span><h3>{diamondData[diamondIndex].prompt}</h3><p>{choiceMade ? diamondData[diamondIndex].result : "Choose a response. The core will remember the direction, not the explanation."}</p><div className="choice-list">{diamondData[diamondIndex].choices.map((choice, index) => <button key={choice} className={choiceMade ? "choice-button answered" : "choice-button"} disabled={choiceMade} onClick={() => answerDiamond(index)}><span>0{index + 1}</span>{choice}</button>)}</div><button className="line-link" onClick={() => chooseDiamond((diamondIndex + 1) % diamondData.length)}>OPEN NEXT DIAMOND <ChevronRight size={14} /></button></div></div><div className="memory-console"><span className="mono-label">JUDAS CORE / MEMORY PROFILE</span><div className="memory-bars">{Object.entries(memory).map(([key, value]) => <div className="memory-row" key={key}><span>{key}</span><div><i style={{ width: `${value}%` }} /></div><b>{value}%</b></div>)}</div>{revelation && <div className="revelation"><span>ERROR / IDENTITY RESTORED</span><strong>THE MISSING PIECE IS YOU.</strong><button className="primary-cta" onClick={() => toast.success("The next chapter is yours.")}>ENTER THE NEXT CHAPTER <ArrowUpRight size={15} /></button><div className="profile-card"><span className="mono-label">YOUR JUDAS PROFILE</span><p>{memory.CREATION >= memory.MEMORY ? "You chose creation over obedience." : "You returned to memory before you chose creation."} {memory.FORGIVENESS > memory.DESIRE ? "You made room for forgiveness." : "You protected the desire you could not name."}</p></div></div>}</div></section>
+
+>>>>>>> 625de4a (chore: sincronizacion y calidad de repo)
         <section className="visual-atelier section-pad" id="visuals"><div className="atelier-preview"><div className="atelier-diamond">◇</div><span className="atelier-coordinates">IMAGE ATELIER / 07° 13' RUBY</span><div className="atelier-grid-lines" /></div><div className="atelier-copy"><div className="section-index">02.5 / IMAGE ATELIER</div><h2>Make the<br /><em>unseen visible.</em></h2><p>A front-end surface for an external image engine. The prompt, style and result travel through a private server adapter when you connect your provider.</p><div className="atelier-input"><textarea disabled={imageMutation.isPending} value={imagePrompt} onChange={(event) => setImagePrompt(event.target.value)} placeholder="Describe the visual you want to enter…" rows={3} /><button className="primary-cta" onClick={runImageRitual} disabled={imageMutation.isPending}><WandSparkles size={15} /> {imageMutation.isPending ? "PREPARING" : "GENERATE VISUAL"}</button></div><div className="atelier-status"><span><span className="live-pulse" /> {imageResult}</span><span>EXTERNAL ADAPTER / READY</span></div></div></section>
 
         <section className="micro-suite section-pad" id="suite"><div className="section-index">02.7 / SPECIALIST ROOMS</div><div className="micro-suite-head"><h2>Small rooms.<br /><em>Deep signals.</em></h2><p className="section-caption">Dedicated instruments for the fragments that do not fit inside one box.</p></div><div className="micro-grid">{["Video Storyboard", "Poem Engine", "Lyric Mirror", "Dream Decoder", "Card Tirage"].map((name, index) => <button key={name} className={microTool === name ? "micro-card active" : "micro-card"} onClick={() => setMicroTool(name)}><span>0{index + 1}</span><strong>{name}</strong><small>{index < 1 ? "MOTION" : index < 3 ? "WORDS" : "ORACLE"}</small></button>)}</div><div className="micro-workbench"><div><span className="mono-label">ACTIVE ROOM // {microTool.toUpperCase()}</span><p>{microOutput}</p></div><div className="micro-input"><input aria-label={`Input for ${microTool}`} value={microInput} onChange={(event) => setMicroInput(event.target.value)} onKeyDown={(event) => event.key === "Enter" && runMicroTool()} placeholder="Give this room a fragment…" /><button onClick={runMicroTool} aria-label={`Run ${microTool}`}><Sparkles size={15} /></button></div></div></section>
